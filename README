@@ -1,0 +1,62 @@
+Business-PayPal-API version 0.62
+================================
+
+INSTALLATION
+
+To install this module type the following:
+
+   perl Makefile.PL
+   make
+   WPP_TEST=auth.txt make test
+   make install
+
+Please notice that this module requires you have several things before
+you can test it:
+
+  - a sandbox personal PayPal account
+  - a sandbox business PayPal account
+  - API credentials (either a certificate or signature)
+  - auth.txt, which contains your API credentials
+
+Acquiring these things is your job, not mine. Read PayPal's
+and this module's documentation to learn more.
+
+If you do not set the WPP_TEST environment variable, sandbox tests
+will be skipped.
+
+The format of the authentication tokens file defined by WPP_TEST may
+be found in the Business::PayPal::API documentation under
+"TESTING". Sample auth.txt files may be found in 'auth.sample.3token'
+and 'auth.sample.cert' in this distribution.
+
+USAGE
+
+  use Business::PayPal::API qw( ExpressCheckout );
+
+  my $pp = new Business::PayPal::API( Username => 'my_api.username.tld',
+                                      Password => 'API_PASSWORD',
+                                      CertFile => '/path/to/cert.pem',
+                                      KeyFile  => '/path/to/key.pem', );
+
+  ...
+  my %details = $pp->GetExpressCheckoutDetails( $token );
+
+DEPENDENCIES
+
+This module requires these other modules and libraries:
+
+  SOAP::Lite 0.67 or later.
+  Crypt::SSLeay required for certificate auth
+
+COPYRIGHT AND LICENCE
+
+This package except those modules listed below are copyright (C) 2006
+by Scott Wiersdorf
+
+AuthorizationRequest, CaptureRequest, DirectPayments,
+ReauthorizationRequest, and VoidRequest modules are copyright (C) 2006
+by Daniel Hembree
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.8.6 or,
+at your option, any later version of Perl 5 you may have available.
