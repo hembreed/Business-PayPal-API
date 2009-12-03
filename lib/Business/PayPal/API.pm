@@ -7,7 +7,7 @@ use warnings;
 use SOAP::Lite 0.67; # +trace => 'all';
 use Carp qw(carp);
 
-our $VERSION = '0.62';
+our $VERSION = '0.69';
 our $CVS_VERSION = '$Id: API.pm,v 1.24 2009/07/28 18:00:58 scott Exp $';
 our $Debug = 0;
 
@@ -181,9 +181,10 @@ sub getFieldsList {
         @response{keys %$fields} = @{$rec}{keys %$fields};
 
         ## avoid duplicates
-        next if $trans_id{$response{TransactionID}};
-        $trans_id{$response{TransactionID}} = 1;
-
+	    if( defined $response{TransactionID}){
+			$trans_id{$response{TransactionID}}? next :
+				$trans_id{$response{TransactionID}} = 1;
+		}
         push @records, \%response;
     }
 
@@ -243,7 +244,7 @@ sub getBasic {
         $details->{$field} = $som->valueof("$path/$field") || '';
     }
 
-    return $details->{Ack} eq 'Success';
+    return $details->{Ack} =~ /Success/;
 }
 
 sub getErrors {

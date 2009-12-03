@@ -1,4 +1,15 @@
 Revision history for Perl extension Business::PayPal::API.
+Release 0.68 - First hembreed release
+-------------------------------------
+I've moved the module's scm to http://github.com/hembreed/Business-PayPal-API so others may share my pain. The tar ball at CPAN will be updated from there.
+
+- API.pm
+   1. Changed eq 'Success' to =~ /Success/ to accomodate variations introduced
+      by PayPal.
+   2. Changed test for duplicates to test for defined variable first. This
+      was causing errors in 5.10+ perl versions.
+
+
 
 Release 0.62 - last scottw release
 ----------------------------
