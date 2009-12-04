@@ -41,4 +41,4 @@ die "Need a transaction id.\n" unless $transid;
 #$Business::PayPal::API::Debug = 1;
 my %resp = $pp->GetTransactionDetails( TransactionID => $transid );
 
-is( $resp{Ack}, 'Success', "transaction received" );
+like( $resp{Ack}, qr/Success/ , "transaction received" );

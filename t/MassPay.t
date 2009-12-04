@@ -22,7 +22,7 @@ my %resp = $pp->MassPay( EmailSubject => "This is the subject; nice eh?",
                                              UniqueID => "123456",
                                              Note => "Enjoy the money. Don't spend it all in one place." } ] );
 
-is( $resp{Ack}, 'Success', "successful payment" );
+like( $resp{Ack}, qr/Success/ , "successful payment" );
 
 %resp = $pp->MassPay( EmailSubject => "This is the subject; nice eh?",
                       MassPayItems => [ { ReceiverEmail => 'bob@test.tld',
@@ -34,4 +34,4 @@ is( $resp{Ack}, 'Success', "successful payment" );
                                           UniqueID => "123458",
                                           Note => "Enjoy the money. Don't spend it all in one place." } ] );
 
-is( $resp{Ack}, 'Success', "successful payments" );
+like( $resp{Ack}, qr/Success/ , "successful payments" );

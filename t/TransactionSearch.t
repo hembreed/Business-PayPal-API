@@ -12,7 +12,7 @@ use_ok( 'Business::PayPal::API::TransactionSearch' );
 require 't/API.pl';
 
 my %args = do_args();
-
+my $resp ='';
 my $pp = new Business::PayPal::API::TransactionSearch( %args );
 
 print STDERR <<"_TRANSID_";

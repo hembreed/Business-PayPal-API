@@ -181,10 +181,13 @@ sub getFieldsList {
         @response{keys %$fields} = @{$rec}{keys %$fields};
 
         ## avoid duplicates
-	    if( defined $response{TransactionID}){
-			$trans_id{$response{TransactionID}}? next :
-				$trans_id{$response{TransactionID}} = 1;
-		}
+	if( defined $response{TransactionID}) {
+	    if( $trans_id{$response{TransactionID}}) {
+		next;
+	    } else {	
+		$trans_id{$response{TransactionID}} = 1;
+	    }
+	}
         push @records, \%response;
     }
 

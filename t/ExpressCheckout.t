@@ -87,6 +87,6 @@ my %payment = ( Token          => $details{Token},
 ##
 my %payinfo = $pp->DoExpressCheckoutPayment(%payment);
 
-is( $payinfo{Ack}, 'Success', "successful payment" );
+like( $payinfo{Ack}, qr/Success/ , "successful payment" );
 is( $payinfo{Token}, $token, "payment ok" );
 is( $payinfo{GrossAmount}, 55.43, "amount correct" );

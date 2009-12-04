@@ -30,7 +30,7 @@ $Business::PayPal::API::Debug = 0;
 my $token = $response{Token};
 
 ok( $token, "Got token" );
-is( $response{Ack}, 'Success', "SetCustomerBillingAgreement successful" );
+like( $response{Ack}, qr/Success/ , "SetCustomerBillingAgreement successful" );
 
 exit;
 
@@ -119,5 +119,5 @@ $Business::PayPal::API::Debug = 0;
 my %details = $pp->GetBillingAgreementCustomerDetails($token);
 $Business::PayPal::API::Debug = 0;
 
-is( $details{Ack}, "Success", "details ok" );
+like( $details{Ack}, qr/Success/ , "details ok" );
 

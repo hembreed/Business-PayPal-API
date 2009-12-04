@@ -92,7 +92,7 @@ my %payinfo = $pp->DoExpressCheckoutPayment(%payment);
 #$Business::PayPal::API::Debug = 0;
 #If Order is successful then authorize it, then void it.
 
-if(is( $payinfo{Ack}, 'Success', "successful payment" )) {
+if(like( $payinfo{Ack}, qr/Success/ , "successful payment" )) {
     my $transid= $payinfo{TransactionID};
     my $amount= '25.43';
     use_ok('Business::PayPal::API::AuthorizationRequest');
@@ -101,12 +101,12 @@ if(is( $payinfo{Ack}, 'Success', "successful payment" )) {
     $ppauth = new Business::PayPal::API::AuthorizationRequest(%args);
     my %resp = $ppauth->DoAuthorizationRequest( TransactionID => $transid,
                                    Amount    => $amount);
-    is( $resp{Ack}, 'Success', 'Successful order authorization' );
+    like( $resp{Ack}, qr/Succes/ , 'Successful order authorization' );
     use_ok( 'Business::PayPal::API::VoidRequest' );
     %args = do_args();
     my $ppvoid= new Business::PayPal::API::VoidRequest( %args );
     %resp1= $ppvoid->DoVoidRequest( AuthorizationID => $transid,
                                Note          => 'Voided' );
                                                                                 
-    is( $resp1{Ack}, 'Success', 'Successful order void' );
+  like( $resp1{Ack}, qr/Success/, 'Successful order void' );
     }

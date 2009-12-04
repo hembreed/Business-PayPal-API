@@ -43,7 +43,7 @@ my %resp = $pp->RefundTransaction( TransactionID => $transid,
                                    RefundType    => 'Full',
                                    Memo          => 'Fancy refund time.' );
 
-is( $resp{Ack}, 'Success', "Successful refund." );
+like( $resp{Ack}, qr/Success/ , "Successful refund." );
 
 if( $resp{Ack} ) {
     print STDERR <<"_REFUND_";
