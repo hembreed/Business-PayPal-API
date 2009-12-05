@@ -108,7 +108,7 @@ Example:
                                      CurrencyID      => 'USD'
                                       );
 
-  unless( $resp{Ack} ne 'Success' ) {
+  unless( $resp{Ack} !~ /Success/ ) {
       for my $error ( @{$response{Errors}} ) {
           warn "Error: " . $error->{LongMessage} . "\n";
       }

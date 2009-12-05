@@ -155,7 +155,7 @@ Example:
                                                UniqueId => "123456",
                                                Note => "Enjoy the money. Don't spend it all in one place." } ] );
 
-  unless( $resp{Ack} eq 'Success' ) {
+  unless( $resp{Ack} !~ /Success/ ) {
     die "Failed: " . $resp{Errors}[0]{LongMessage} . "\n";
   }
 
