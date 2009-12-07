@@ -4,7 +4,7 @@ if( ! $ENV{WPP_TEST} || ! -f $ENV{WPP_TEST} ) {
     plan skip_all => 'No WPP_TEST env var set. Please see README to run tests';
 }
 else {
-    plan tests => 4;
+    plan tests => 3;
 }
 
 use_ok( 'Business::PayPal::API::RecurringPayments' );
@@ -16,16 +16,16 @@ my %args = do_args();
 
 my $pp = new Business::PayPal::API::RecurringPayments(%args);
 
-$Business::PayPal::API::Debug = 1;
+#$Business::PayPal::API::Debug = 1;
 my %response = $pp->SetCustomerBillingAgreement
   (
    BillingType => 'RecurringPayments',
-
+   BillingAgreementDescription => '10.00 per month for 1 year',
    ReturnURL  => 'http://www.google.com/',
    CancelURL  => 'http://www.google.com/', 
    BuyerEmail => $args{BuyerEmail},
   );
-$Business::PayPal::API::Debug = 0;
+#$Business::PayPal::API::Debug = 0;
 
 my $token = $response{Token};
 
@@ -70,14 +70,14 @@ die "Need a PayerID.\n" unless $payerid;
 
 
 ## CreateRecurringPaymentsProfile
-$Business::PayPal::API::Debug = 1;
+#$Business::PayPal::API::Debug = 1;
 my %profile = $pp->CreateRecurringPaymentsProfile
   ( Token => $token,
 
     ## RecurringPaymentProfileDetails
     SubscriberName => 'Joe Schmoe',
 
-    SubscriberShipperName            => "Schmoe House",
+    SubscriberShipperName            => 'Schmoe House',
     SubscriberShipperStreet1         => '1234 Street St.',
     SubscriberShipperCityName        => 'Orem',
     SubscriberShipperStateOrProvince => 'UT',
@@ -85,39 +85,39 @@ my %profile = $pp->CreateRecurringPaymentsProfile
     SubscriberShipperCountry         => 'USA',
     SubscriberShipperPhone           => '123-123-1234',
 
-    BillingStartDate => '12-31-08',
+    BillingStartDate => '2009-12-01Z',
     ProfileReference => 'BH12341234',
 
     ## ScheduleDetails
-    Description => "12 Month Hosting Package: We Love You!",
+    Description => '12 Month Hosting Package: We Love You!',
 
     InitialAmount     => '12.34',
 
-    TrialBillingPeriod      => "Month",
+    TrialBillingPeriod      => 'Month',
     TrialBillingFrequency   => 1,
     TrialTotalBillingCycles => 1,
     TrialAmount             => 0.00,
     TrialShippingAmount     => 0.00,
     TrialTaxAmount          => 0.00,
 
-    PaymentBillingPeriod      => "Year",
+    PaymentBillingPeriod      => 'Year',
     PaymentBillingFrequency   => 1,
     PaymentTotalBillingCycles => 1,
     PaymentAmount             => 95.40,
     PaymentShippingAmount     => 0.00,
     PaymentTaxAmount          => 0.00,
 
-    MaxFailedPayments         => 1,
-    AutoBillOutstandingAmount => 'AddToNextBilling',
+#    MaxFailedPayments         => 1,
+#    AutoBillOutstandingAmount => 'AddToNextBilling',
   );
 
-$Business::PayPal::API::Debug = 0;
+#$Business::PayPal::API::Debug = 0;
 
 
 ## GetBillingAgreementCustomerDetails
 #$Business::PayPal::API::Debug = 1;
 my %details = $pp->GetBillingAgreementCustomerDetails($token);
-$Business::PayPal::API::Debug = 0;
+#$Business::PayPal::API::Debug = 0;
 
 like( $details{Ack}, qr/Success/ , "details ok" );
 
