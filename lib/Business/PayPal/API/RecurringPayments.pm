@@ -27,7 +27,7 @@ sub SetCustomerBillingAgreement {
                      PaymentType                 => '', # 'ns:MerchantPullPaymentCodeType',
                      BillingAgreementCustom      => 'xs:string', );
 
-    my %types = ( # BillingAgreementDetails     => 'ns:BillingAgreementDetailsType',
+    my %types = (  BillingAgreementDetails     => 'ns:BillingAgreementDetailsType',
                   ReturnURL                   => 'xs:string',
                   CancelURL                   => 'xs:string',
                   LocaleCode                  => 'xs:string',
@@ -59,7 +59,7 @@ sub SetCustomerBillingAgreement {
 
     my $request = SOAP::Data
       ->name( SetCustomerBillingAgreementRequest => \SOAP::Data->value
-              ( $API_VERSION,
+              ( $self->version_req, #$API_VERSION,
                 SOAP::Data->name( SetCustomerBillingAgreementRequestDetails => \SOAP::Data->value(@scba)
                                 )->attr( {xmlns => $self->C_xmlns_ebay} ),
               )
@@ -139,31 +139,31 @@ sub CreateRecurringPaymentsProfile {
 
     ## RecurringPaymentProfileDetails
     my %profiledetailstype = ( SubscriberName   => 'xs:string',
-#                               SubscriberShipperAddress => 'ns:AddressType',
+                               SubscriberShipperAddress => 'ns:AddressType',
                                BillingStartDate => 'xs:dateTime',  ## MM-DD-YY
                                ProfileReference => 'xs:string', );
 
     ## ScheduleDetailsType
     my %schedtype = ( Description       => 'xs:string',
-#                      ActivationDetails => 'ns:ActivationDetailsType',
-#                      TrialPeriod       => 'ns:BillingPeriodDetailsType',
-#                      PaymentPeriod     => 'ns:BillingPeriodDetailsType',
+                      ActivationDetails => 'ns:ActivationDetailsType',
+                      TrialPeriod       => 'ns:BillingPeriodDetailsType',
+                      PaymentPeriod     => 'ns:BillingPeriodDetailsType',
                       MaxFailedPayments => 'xs:int',
                       AutoBillOutstandingAmount => 'ns:AutoBillType', );  ## NoAutoBill or AddToNextBilling
 
     ## activation details
     my %activationdetailstype = ( InitialAmount             => 'cc:BasicAmountType',
-                                  FailedInitialAmountAction => 'ns:FailedPaymentAction' );  ## ContinueOnFailure or CancelOnFailure
+                                  FailedInitialAmountAction => 'ns:FailedPaymentAction', );  ## ContinueOnFailure or CancelOnFailure
 
     ## BillingPeriodDetailsType
-    my %trialbilltype = ( TrialBillingPeriod      => 'ns:BillingPeriodType',
+    my %trialbilltype = ( TrialBillingPeriod      => 'xs:string', ##'ns:BillingPeriodType',
                           TrialBillingFrequency   => 'xs:int',
                           TrialTotalBillingCycles => 'xs:int',
                           TrialAmount             => 'cc:AmountType',
                           TrialShippingAmount     => 'cc:AmountType',
                           TrialTaxAmount          => 'cc:AmountType', );
 
-    my %paymentbilltype = ( PaymentBillingPeriod      => 'ns:BillingPeriodType',
+    my %paymentbilltype = ( PaymentBillingPeriod      => 'xs:string', ##'ns:BillingPeriodType',
                             PaymentBillingFrequency   => 'xs:int',
                             PaymentTotalBillingCycles => 'xs:int',
                             PaymentAmount             => 'cc:AmountType',
@@ -191,17 +191,17 @@ sub CreateRecurringPaymentsProfile {
 
     ## credit card payer
     my %payerinfotype = ( CCPayer           => 'ns:EmailAddressType',
-                          CCPayerID         => 'xs:string',
+                          CCPayerID         => 'ebl:UserIDType',
                           CCPayerStatus     => 'xs:string',
                           CCPayerName       => 'xs:string',
                           CCPayerCountry    => 'xs:string',
                           CCPayerPhone      => 'xs:string',
                           CCPayerBusiness   => 'xs:string',
-#                          Address         => 'ns:AddressType',
+                          CCAddress         => 'xs:string',
                          );
 
     ## credit card details
-    my %creditcarddetailstype = ( # CardOwner        => 'ns:PayerInfoType',
+    my %creditcarddetailstype = ( CardOwner        => 'ns:PayerInfoType',
                                   CreditCardType   => 'ebl:CreditCardType',  ## Visa, MasterCard, Discover, Amex, Switch, Solo
                                   CreditCardNumber => 'xs:string',
                                   ExpMonth         => 'xs:int',
@@ -209,7 +209,7 @@ sub CreateRecurringPaymentsProfile {
                                   CVV2             => 'xs:string',
                                   StartMonth       => 'xs:string',
                                   StartYear        => 'xs:string',
-                                  IssueNumber      => 'xs:string', );
+                                  IssueNumber      => 'xs:int', );
 
     ## this gets pushed onto scheduledetails
     my @activationdetailstype = ();
@@ -285,8 +285,8 @@ sub CreateRecurringPaymentsProfile {
 
     my $request = SOAP::Data->name
       ( CreateRecurringPaymentsProfileRequest => \SOAP::Data->value
-        ( $API_VERSION,
-#        ( $self->version_req,
+#        ( $API_VERSION,
+        ( $self->version_req,
           SOAP::Data->name( CreateRecurringPaymentsProfileRequestDetails => \SOAP::Data->value(@crpprd) 
                           )->attr( {xmlns => $self->C_xmlns_ebay} )
         )
