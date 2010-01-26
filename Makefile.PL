@@ -6,6 +6,11 @@ WriteMakefile(
     NAME              => 'Business::PayPal::API',
     VERSION_FROM      => 'lib/Business/PayPal/API.pm',
     PREREQ_PM         => { SOAP::Lite => 0.67 },
+    META_ADD          => {
+        resources => {
+            repository => 'git://github.com/hembreed/Business-PayPal-API.git',
+        },
+    },
     ($] >= 5.005 ?
       (ABSTRACT_FROM  => 'lib/Business/PayPal/API.pm',
        AUTHOR         => 'Scott Wiersdorf <scott@perlcode.org>') : ()),
