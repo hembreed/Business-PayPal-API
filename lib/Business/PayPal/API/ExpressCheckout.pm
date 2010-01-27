@@ -144,7 +144,7 @@ sub GetExpressCheckoutDetails {
                        FirstName       => 'PayerInfo/PayerName/FirstName',
                        MiddleName      => 'PayerInfo/PayerName/MiddleName',
                        LastName        => 'PayerInfo/PayerName/LastName',
-                       Suffix          => 'PayerInfo/PayerName/Suffix',
+                       NameSuffix      => 'PayerInfo/PayerName/Suffix',
                        PayerBusiness   => 'PayerInfo/PayerBusiness',
                        AddressStatus   => 'PayerInfo/Address/AddressStatus',
                        Name            => 'PayerInfo/Address/Name',
