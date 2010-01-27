@@ -154,6 +154,7 @@ sub GetExpressCheckoutDetails {
                        StateOrProvince => 'PayerInfo/Address/StateOrProvince',
                        PostalCode      => 'PayerInfo/Address/PostalCode',
                        Country         => 'PayerInfo/Address/Country',
+                       PayerCountry    => 'PayerInfo/PayerCountry',
                      } );
 
     return %details;
