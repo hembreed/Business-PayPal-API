@@ -4,7 +4,7 @@ use 5.008001;
 use strict;
 use warnings;
 
-use SOAP::Lite 0.710.10; # +trace => 'all';
+use SOAP::Lite 0.67; # +trace => 'all';
 use Carp qw(carp);
 
 our $VERSION = '0.69';
