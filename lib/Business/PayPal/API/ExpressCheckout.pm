@@ -168,6 +168,7 @@ sub DoExpressCheckoutPayment {
 		  PaymentAction             => '',                 ## NOTA BENE!
 		  PayerID                   => 'ebl:UserIDType',
 		  currencyID                => '',
+		  ReturnFMFDetails			=> 'xs:boolean',
 		  );
 
     ## PaymentDetails
@@ -278,7 +279,9 @@ sub DoExpressCheckoutPayment {
 		 SOAP::Data->name( PaymentDetails => \SOAP::Data->value
 				   ( @payment_details )->type('ebl:PaymentDetailsType')
 				   ->attr( {xmlns => $self->C_xmlns_ebay} ),
-				   ), );
+				   ), 
+		 SOAP::Data->name( ReturnFMFDetails => $args{ReturnFMFDetails} )
+		 ->type($types{ReturnFMFDetails})->attr( {xmlns => $self->C_xmlns_ebay} ), );
 
     ##
     ## the main request object
@@ -319,6 +322,11 @@ sub DoExpressCheckoutPayment {
                         ExchangeRate        => 'PaymentInfo/ExchangeRate',
                         PaymentStatus       => 'PaymentInfo/PaymentStatus',
                         PendingReason       => 'PaymentInfo/PendingReason',
+						AcceptFilters		=> 'FMFDetails/AcceptFilters',
+						DenyFilters			=> 'FMFDetails/DenyFilters',
+						PendingFilters		=> 'FMFDetails/PendingFilters',
+						ReportsFilters		=> 'FMFDetails/ReportsFilters',
+						ProtectionEligibility => 'PaymentInfo/ProtectionEligibility',
                       } );
 
     return %response;

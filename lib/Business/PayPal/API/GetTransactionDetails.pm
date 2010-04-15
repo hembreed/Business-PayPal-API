@@ -82,6 +82,7 @@ sub GetTransactionDetails {
                        PaymentStatus       => '/PaymentInfo/PaymentStatus',
                        PendingReason       => '/PaymentInfo/PendingReason',
                        ReasonCode          => '/PaymentInfo/ReasonCode',
+                       ProtectionEligibility          => '/PaymentInfo/ProtectionEligibility',
 
                        InvoiceID           => '/PaymentItemInfo/InvoiceID',
                        Custom              => '/PaymentItemInfo/Custom',
