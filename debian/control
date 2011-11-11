@@ -3,7 +3,7 @@ Section: perl
 Priority: optional
 Build-Depends: debhelper (>= 5.0.0)
 Build-Depends-Indep: perl (>= 5.8.8-12), libsoap-lite-perl
-Maintainer: Tomas Doran <davel@state51.co.uk>
+Maintainer: Dave Lambley <davel@state51.co.uk>
 Standards-Version: 3.7.2
 Homepage: http://search.cpan.org/dist/Business-PayPal-API/
 
