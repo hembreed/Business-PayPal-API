@@ -124,7 +124,7 @@ sub GetTransactionDetails {
                                                Options  => 'Options',
                                              } );
 
-    if( scalar(@$paymentitems) > 1 ) {
+    if( scalar(@$paymentitems) > 0 ) {
         $response{PaymentItems} = $paymentitems;
     }
 
