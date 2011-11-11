@@ -1,5 +1,7 @@
 Revision history for Perl extension Business::PayPal::API.
 
+- Fix warning in Perl 5.14.x (hopefully).
+
 Release 0.69 - As currently release to CPAN
 -------------------------------------------
 - Merge in changes from Ron Phipps.
