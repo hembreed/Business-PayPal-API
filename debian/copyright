@@ -1,5 +1,5 @@
 This is the debian package for the Business-PayPal-API module.
-It was created by Tomas Doran <t0m@state51.co.uk> using dh-make-perl.
+It was created by Dave Lambley <davel@state51.co.uk> using dh-make-perl.
 
 It was downloaded from http://search.cpan.org/dist/Business-PayPal-API/
 
