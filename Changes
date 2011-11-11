@@ -1,4 +1,8 @@
 Revision history for Perl extension Business::PayPal::API.
+
+Release 0.69 - As currently release to CPAN
+-------------------------------------------
+
 Release 0.68 - First hembreed release
 -------------------------------------
 I've moved the module's scm to http://github.com/hembreed/Business-PayPal-API so others may share my pain. CPAN will be updated from there.
