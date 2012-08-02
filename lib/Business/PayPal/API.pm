@@ -242,7 +242,7 @@ sub getBasic {
 
     return unless $som;
 
-    for my $field qw/ Ack Timestamp CorrelationID Version Build / {
+    for my $field ( qw( Ack Timestamp CorrelationID Version Build ) ) {
         $details->{$field} = $som->valueof("$path/$field") || '';
     }
 
