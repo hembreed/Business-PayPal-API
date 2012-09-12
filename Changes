@@ -1,4 +1,19 @@
 Revision history for Perl extension Business::PayPal::API.
+
+- Merge in changes from Ron Phipps.
+  - Reduce SOAP version requirement.
+  - Protection eligibility support.
+- Merge in changes from Tomas Doran.
+  - CPAN packaging enhancements.
+- Extract out more payer details from XML. (PayerName, NameSuffix, PayerCountry).
+- Fix warning in Perl 5.14.x (hopefully). https://rt.cpan.org/Public/Bug/Display.html?id=70424
+- Fix https://rt.cpan.org/Public/Bug/Display.html?id=67386
+
+Release 0.69 - As currently release to CPAN
+-------------------------------------------
+
+(Changelog corrected).
+
 Release 0.68 - First hembreed release
 -------------------------------------
 I've moved the module's scm to http://github.com/hembreed/Business-PayPal-API so others may share my pain. CPAN will be updated from there.
