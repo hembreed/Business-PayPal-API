@@ -82,6 +82,7 @@ sub GetTransactionDetails {
                        PaymentStatus       => '/PaymentInfo/PaymentStatus',
                        PendingReason       => '/PaymentInfo/PendingReason',
                        ReasonCode          => '/PaymentInfo/ReasonCode',
+                       ProtectionEligibility          => '/PaymentInfo/ProtectionEligibility',
 
                        InvoiceID           => '/PaymentItemInfo/InvoiceID',
                        Custom              => '/PaymentItemInfo/Custom',
@@ -123,7 +124,7 @@ sub GetTransactionDetails {
                                                Options  => 'Options',
                                              } );
 
-    if( scalar(@$paymentitems) > 1 ) {
+    if( scalar(@$paymentitems) > 0 ) {
         $response{PaymentItems} = $paymentitems;
     }
 

@@ -140,8 +140,11 @@ sub GetExpressCheckoutDetails {
                        Payer           => 'PayerInfo/Payer',
                        PayerID         => 'PayerInfo/PayerID',
                        PayerStatus     => 'PayerInfo/PayerStatus',
+                       Salutation      => 'PayerInfo/PayerName/Saluation',
                        FirstName       => 'PayerInfo/PayerName/FirstName',
+                       MiddleName      => 'PayerInfo/PayerName/MiddleName',
                        LastName        => 'PayerInfo/PayerName/LastName',
+                       NameSuffix      => 'PayerInfo/PayerName/Suffix',
                        PayerBusiness   => 'PayerInfo/PayerBusiness',
                        AddressStatus   => 'PayerInfo/Address/AddressStatus',
                        Name            => 'PayerInfo/Address/Name',
@@ -151,6 +154,7 @@ sub GetExpressCheckoutDetails {
                        StateOrProvince => 'PayerInfo/Address/StateOrProvince',
                        PostalCode      => 'PayerInfo/Address/PostalCode',
                        Country         => 'PayerInfo/Address/Country',
+                       PayerCountry    => 'PayerInfo/PayerCountry',
                      } );
 
     return %details;
@@ -164,6 +168,7 @@ sub DoExpressCheckoutPayment {
 		  PaymentAction             => '',                 ## NOTA BENE!
 		  PayerID                   => 'ebl:UserIDType',
 		  currencyID                => '',
+		  ReturnFMFDetails			=> 'xs:boolean',
 		  );
 
     ## PaymentDetails
@@ -274,7 +279,9 @@ sub DoExpressCheckoutPayment {
 		 SOAP::Data->name( PaymentDetails => \SOAP::Data->value
 				   ( @payment_details )->type('ebl:PaymentDetailsType')
 				   ->attr( {xmlns => $self->C_xmlns_ebay} ),
-				   ), );
+				   ), 
+		 SOAP::Data->name( ReturnFMFDetails => $args{ReturnFMFDetails} )
+		 ->type($types{ReturnFMFDetails})->attr( {xmlns => $self->C_xmlns_ebay} ), );
 
     ##
     ## the main request object
@@ -315,6 +322,11 @@ sub DoExpressCheckoutPayment {
                         ExchangeRate        => 'PaymentInfo/ExchangeRate',
                         PaymentStatus       => 'PaymentInfo/PaymentStatus',
                         PendingReason       => 'PaymentInfo/PendingReason',
+						AcceptFilters		=> 'FMFDetails/AcceptFilters',
+						DenyFilters			=> 'FMFDetails/DenyFilters',
+						PendingFilters		=> 'FMFDetails/PendingFilters',
+						ReportsFilters		=> 'FMFDetails/ReportsFilters',
+						ProtectionEligibility => 'PaymentInfo/ProtectionEligibility',
                       } );
 
     return %response;

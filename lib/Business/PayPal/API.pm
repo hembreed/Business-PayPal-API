@@ -7,8 +7,7 @@ use warnings;
 use SOAP::Lite 0.67; # +trace => 'all';
 use Carp qw(carp);
 
-our $VERSION = '0.69';
-our $CVS_VERSION = '$Id: API.pm,v 1.24 2009/07/28 18:00:58 scott Exp $';
+our $VERSION = '0.70';
 our $Debug = 0;
 
 ## NOTE: This package exists only until I can figure out how to use
@@ -22,7 +21,7 @@ sub C_api_live    () { 'https://api.paypal.com/2.0/' }
 sub C_api_live_3t () { 'https://api-3t.paypal.com/2.0/' }
 sub C_xmlns_pp    () { 'urn:ebay:api:PayPalAPI' }
 sub C_xmlns_ebay  () { 'urn:ebay:apis:eBLBaseComponents' }
-sub C_version     () { '3.0' }  ## 3.0 adds RecurringPayments
+sub C_version     () { '61.0' }  ## 3.0 adds RecurringPayments
 
 ## this is an inside-out object. Make sure you 'delete' additional
 ## members in DESTROY() as you add them.
@@ -243,7 +242,7 @@ sub getBasic {
 
     return unless $som;
 
-    for my $field qw( Ack Timestamp CorrelationID Version Build ) {
+    for my $field ( qw( Ack Timestamp CorrelationID Version Build ) ) {
         $details->{$field} = $som->valueof("$path/$field") || '';
     }
 
