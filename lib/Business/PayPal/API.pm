@@ -7,7 +7,7 @@ use warnings;
 use SOAP::Lite 0.67; # +trace => 'all';
 use Carp qw(carp);
 
-our $VERSION = '0.69';
+our $VERSION = '0.70';
 our $Debug = 0;
 
 ## NOTE: This package exists only until I can figure out how to use
